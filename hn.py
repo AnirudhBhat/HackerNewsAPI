@@ -1,7 +1,8 @@
 import json
 import requests
 
-from post import Post 
+from post import Post
+from user import User 
 
 TOP_POSTS_URL = "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty"
 TOP_POSTS_ITEM = "https://hacker-news.firebaseio.com/v0/item/%s.json?print=pretty"
@@ -29,6 +30,15 @@ def parse_json(limit, json_data):
 		posts.append(p)
 	return posts
 
+
+def user(name):
+	u = User()
+	USER_URL = "https://hacker-news.firebaseio.com/v0/user/%s.json?print=pretty"%name
+	user_json_data = json.loads(make_request(USER_URL))
+	u.name = user_json_data['id']
+	u.karma = user_json_data['karma']
+	u.about = user_json_data['about']
+	return u
 
 def top_posts(limit = 10):
 	data = make_request(TOP_POSTS_URL)
@@ -65,4 +75,4 @@ def display_post(story_type = 'top_posts'):
 	for p in eval(story_type + '()'):
 		print str(p.points) + '----->' + p.title
 
-display_post('ask_posts')
+#display_post('ask_posts')
