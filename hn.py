@@ -11,6 +11,7 @@ ASK_POSTS_URL = "https://hacker-news.firebaseio.com/v0/askstories.json?print=pre
 SHOW_POSTS_URL = "https://hacker-news.firebaseio.com/v0/showstories.json?print=pretty"
 JOB_POSTS_URL = "https://hacker-news.firebaseio.com/v0/jobstories.json?print=pretty"
 
+post_types = ['top_posts', 'new_posts', 'askhn_posts', 'showhn_posts', 'job_posts']
 
 def parse_json(limit, json_data):
 	posts = []
@@ -50,12 +51,12 @@ def new_posts(limit = 10):
 	json_data = json.loads(data)
 	return parse_json(limit, json_data)
 
-def ask_posts(limit = 10):
+def askhn_posts(limit = 10):
 	data = make_request(ASK_POSTS_URL)
 	json_data = json.loads(data)
 	return parse_json(limit, json_data)
 
-def show_posts(limit = 10):
+def showhn_posts(limit = 10):
 	data = make_request(SHOW_POSTS_URL)
 	json_data = json.loads(data)
 	return parse_json(limit, json_data)
@@ -70,9 +71,11 @@ def make_request(url):
 	r = requests.get(url).text
 	return r
 
+class InvalidPostTypeException(Exception):
+	pass
 
-def display_post(story_type = 'top_posts'):
-	for p in eval(story_type + '()'):
-		print str(p.points) + '----->' + p.title
-
-#display_post('ask_posts')
+def get_post(post_type = 'top_posts', limit = 10):	
+	if post_type not in post_types:
+		raise InvalidPostTypeException('invalid post type!')	
+	else:
+		return eval(post_type + '()')
