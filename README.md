@@ -17,7 +17,7 @@ for post in top_posts:
 #API
 ##get_post(post_type, limit)
 ###parameter: 
-  * post_type - any one of [top_posts, new_posts, askhn_posts, showhn_posts, job_posts]
+  * post_type - any one of [top_posts, new_posts, askhn_posts, showhn_posts, job_posts]. Default value is top_posts.
   * limit - number of posts to return. Default value is 10
 
 ##Example
