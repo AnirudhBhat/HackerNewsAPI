@@ -52,9 +52,12 @@ def user(name):
 	u = User()
 	USER_URL = "https://hacker-news.firebaseio.com/v0/user/%s.json?print=pretty"%name
 	user_json_data = json.loads(make_request(USER_URL))
-	u.name = user_json_data['id']
-	u.karma = user_json_data['karma']
-	u.about = user_json_data['about']
+	try:
+		u.name = user_json_data['id']
+		u.karma = user_json_data['karma']
+		u.about = user_json_data['about']
+	except:
+		pass
 	return u
 
 
@@ -96,4 +99,4 @@ def get_post(post_type = 'top_posts', limit = 10):
 	if post_type not in post_types:
 		raise InvalidPostTypeException('invalid post type!')	
 	else:
-		return eval(post_type + '(' + limit + ')')
+		return eval(post_type + '(' + str(limit) + ')')
