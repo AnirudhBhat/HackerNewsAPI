@@ -5,11 +5,13 @@ python wrapper for hackernews api
 `$ pip install hacker_news`
 
 #Usage
-```import hn
+```
+import hn
 top_posts = hn.get_post()
- print top 10 posts from hacker news
+#print top 10 posts from hacker news
 for post in top_posts:
-    print post.title```
+    print post.title
+ ```
     
 
 #API
@@ -19,25 +21,31 @@ for post in top_posts:
   limit----->number of posts to return. Default value is 10
 
 ##Example
-```import hn
+```
+import hn
 showhn_posts = hn.get_post('showhn_posts', 20)
- print top 20 SHOW HN posts.
+#print top 20 SHOW HN posts.
 for post in showhn_posts:
-  print str(post.points), post.title, post.submitter, post.num_comments```
+  print str(post.points), post.title, post.submitter, post.num_comments
+```
   
 ##user(username)
 
 ##Example
-```import hn
+```
+import hn
 user = hn.user('abhat38')
-print user.name, user.karma, user.about```
+print user.name, user.karma, user.about
+```
 
 ##id(id)
 
 ##Example
-```import hn
+```
+import hn
 post = hn.id('8863')
-print post.title, post.url```
+print post.title, post.url
+```
 
 #class: Post
 Each Post has following attributes
