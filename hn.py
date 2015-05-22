@@ -1,4 +1,5 @@
 import json
+
 import requests
 
 from post import Post
@@ -32,6 +33,21 @@ def parse_json(limit, json_data):
 	return posts
 
 
+def get_json(url):
+	data = make_request(url)
+	json_data = json.loads(data)
+	return json_data
+
+def parse_json_for_id(json_data):
+	p = Post()
+	p.submitter = json_data['by']
+	p.points = json_data['score']
+	p.title = json_data['title']
+	p.url = json_data['url']
+	p.story_type = json_data['type']
+	p.num_comments = json_data['descendants']
+	return p
+
 def user(name):
 	u = User()
 	USER_URL = "https://hacker-news.firebaseio.com/v0/user/%s.json?print=pretty"%name
@@ -41,29 +57,31 @@ def user(name):
 	u.about = user_json_data['about']
 	return u
 
+
+def id(id):
+	url = TOP_POSTS_ITEM %id
+	json_data = get_json(url)
+	return parse_json_for_id(json_data)
+
+
 def top_posts():
-	data = make_request(TOP_POSTS_URL)
-	json_data = json.loads(data)
+	json_data = get_json(TOP_POSTS_URL)
 	return parse_json(limit, json_data)
 
 def new_posts():
-	data = make_request(NEW_POSTS_URL)
-	json_data = json.loads(data)
+	json_data = get_json(NEW_POSTS_URL)
 	return parse_json(limit, json_data)
 
 def askhn_posts():
-	data = make_request(ASK_POSTS_URL)
-	json_data = json.loads(data)
+	json_data = get_json(ASK_POSTS_URL)
 	return parse_json(limit, json_data)
 
 def showhn_posts():
-	data = make_request(SHOW_POSTS_URL)
-	json_data = json.loads(data)
+	json_data = get_json(SHOW_POSTS_URL)
 	return parse_json(limit, json_data)
 
 def job_posts():
-	data = make_request(JOB_POSTS_URL)
-	json_data = json.loads(data)
+	json_data = get_json(JOB_POSTS_URL)
 	return parse_json(limit, json_data)
 
 
