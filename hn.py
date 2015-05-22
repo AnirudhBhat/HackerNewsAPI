@@ -20,7 +20,7 @@ def parse_json(limit, json_data):
 		url = TOP_POSTS_ITEM %(json_data[i])
 		item_json_data = json.loads(make_request(url))
 		try:
-			p.submitter = item_json_data['by']			
+			p.submitter = item_json_data['by']
 			p.points = item_json_data['score']
 			p.title = item_json_data['title']
 			p.url = item_json_data['url']
@@ -41,27 +41,27 @@ def user(name):
 	u.about = user_json_data['about']
 	return u
 
-def top_posts(limit = 10):
+def top_posts():
 	data = make_request(TOP_POSTS_URL)
 	json_data = json.loads(data)
 	return parse_json(limit, json_data)
 
-def new_posts(limit = 10):
+def new_posts():
 	data = make_request(NEW_POSTS_URL)
 	json_data = json.loads(data)
 	return parse_json(limit, json_data)
 
-def askhn_posts(limit = 10):
+def askhn_posts():
 	data = make_request(ASK_POSTS_URL)
 	json_data = json.loads(data)
 	return parse_json(limit, json_data)
 
-def showhn_posts(limit = 10):
+def showhn_posts():
 	data = make_request(SHOW_POSTS_URL)
 	json_data = json.loads(data)
 	return parse_json(limit, json_data)
 
-def job_posts(limit = 10):
+def job_posts():
 	data = make_request(JOB_POSTS_URL)
 	json_data = json.loads(data)
 	return parse_json(limit, json_data)
